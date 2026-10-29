@@ -16,6 +16,7 @@ DB_NAME = str(Path(__file__).parent.parent / "vector_db")
 
 BASE_URL = os.getenv("GAPGPT_URL")
 API_KEY = os.getenv("GAPGPT_TOKEN")
+print(BASE_URL)
 
 # embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
@@ -64,4 +65,5 @@ def answer_question(question: str, history: list[dict] = []) -> tuple[str, list[
 
 
 if __name__ == "__main__":
-    print(fetch_context("show is Hannah"))
+    content, docs = answer_question("what is Hannah career position ?")
+    print(content)
