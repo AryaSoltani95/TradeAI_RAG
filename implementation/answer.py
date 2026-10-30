@@ -20,7 +20,7 @@ print(BASE_URL)
 
 # embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-RETRIEVAL_K = 2
+RETRIEVAL_K = 5
 
 SYSTEM_PROMPT = """
 You are a knowledgeable, accurate assistant answering the questions about TradAI company.
@@ -45,6 +45,7 @@ def fetch_context(question: str) -> list[Document]:
 def combined_question(question: str, history: list[dict] = []) -> str:
     """
     Combine all the user's messages into a single string.
+    Because of concrete question answers and don't forget user prevous messages(prevent search unrelevent context)
     """
     prior = "\n".join(m["content"] for m in history if m["role"] == "user")
     return prior + "\n" + question
